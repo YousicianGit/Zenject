@@ -1891,7 +1891,7 @@ namespace Zenject
 
             InjectGameObject(gameObj);
 
-            if (shouldMakeActive)
+            if (shouldMakeActive && !IsValidating)
             {
                 gameObj.SetActive(true);
             }
