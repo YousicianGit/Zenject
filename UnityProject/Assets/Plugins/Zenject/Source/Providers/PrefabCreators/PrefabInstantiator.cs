@@ -86,7 +86,7 @@ namespace Zenject
                         gameObject, _argumentTarget, injectArgs);
                 }
 
-                if (shouldMakeActive)
+                if (shouldMakeActive && !_container.IsValidating)
                 {
                     gameObject.SetActive(true);
                 }
