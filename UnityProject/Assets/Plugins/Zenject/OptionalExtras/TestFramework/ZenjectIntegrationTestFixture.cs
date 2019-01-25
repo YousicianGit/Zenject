@@ -81,26 +81,13 @@ namespace Zenject
             Assert.IsEqual(shouldValidate, _sceneContext.Container.IsValidating);
         }
 
-        bool CurrentTestHasAttribute<T>()
-            where T : Attribute
-        {
-            // tests with double parameters need to have their () removed first
-            var name = TestContext.CurrentContext.Test.FullName;
-
-            // Remove all characters after the first open bracket if there is one
-            int openBracketIndex = name.IndexOf("(");
-
-            if (openBracketIndex != -1)
-            {
-                name = name.Substring(0, openBracketIndex);
-            }
-
-            // Now we can get the substring starting at the last '.'
-            name = name.Substring(name.LastIndexOf(".") + 1);
-
-            return this.GetType().GetMethod(name).GetCustomAttributes(true)
-                .Cast<Attribute>().OfType<T>().Any();
-        }
+	    bool CurrentTestHasAttribute<T>()
+		    where T : Attribute
+	    {
+		    return GetType().GetMethod(TestContext.CurrentContext.Test.MethodName)
+			    .GetCustomAttributes(true)
+			    .Cast<Attribute>().OfType<T>().Any();
+	    }
 
         protected void PostInstall()
         {
