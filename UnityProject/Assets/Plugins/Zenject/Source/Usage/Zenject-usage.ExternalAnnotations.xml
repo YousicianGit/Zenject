@@ -1,3 +1,4 @@
+<!-- This file can be removed after upgrading Zenject to 8.0.0 or later -->
 <assembly name="Zenject-usage">
   <member name="T:Zenject.InjectAttribute">
     <attribute ctor="M:JetBrains.Annotations.MeansImplicitUseAttribute.#ctor(JetBrains.Annotations.ImplicitUseKindFlags)">
