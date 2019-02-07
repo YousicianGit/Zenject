@@ -82,11 +82,11 @@ namespace Zenject.Internal
                     // This should be rare though and only seems to occur when instantiating
                     // structs on platforms that don't support lambda expressions
                     // Non-structs should always have a default constructor
-                    factoryMethod = args =>
+                    /*factoryMethod = args =>
                     {
                         Assert.That(args.Length == 0);
                         return Activator.CreateInstance(type, new object[0]);
-                    };
+                    };*/
                 }
                 else
                 {
@@ -111,9 +111,17 @@ namespace Zenject.Internal
 
             if (constructor == null)
             {
-                return Expression.Lambda<ZenFactoryMethod>(
-                    Expression.Convert(
-                        Expression.New(type), typeof(object)), param).Compile();
+	            try
+	            {
+		            return Expression.Lambda<ZenFactoryMethod>(
+			            Expression.Convert(
+				            Expression.New(type), typeof(object)), param).Compile();
+	            }
+	            catch (ArgumentException e)
+	            {
+		            UnityEngine.Debug.Log(e.Message);
+		            return null;
+	            }
             }
 
             ParameterInfo[] par = constructor.GetParameters();

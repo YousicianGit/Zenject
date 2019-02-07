@@ -1311,6 +1311,9 @@ namespace Zenject
             else
 #endif
             {
+	            if (typeInfo.InjectConstructor.Factory == null)
+		            return null;
+
                 Assert.IsNotNull(typeInfo.InjectConstructor.Factory,
                     "More than one (or zero) constructors found for type '{0}' when creating dependencies.  Use one [Inject] attribute to specify which to use.", concreteType);
 
@@ -1601,6 +1604,9 @@ namespace Zenject
             object injectable, Type injectableType, List<TypeValuePair> extraArgs,
             InjectContext context, object concreteIdentifier)
         {
+	        if (injectable == null)
+		        return;
+
             Assert.That(injectable != null);
 
             var typeInfo = TypeAnalyzer.TryGetInfo(injectableType);

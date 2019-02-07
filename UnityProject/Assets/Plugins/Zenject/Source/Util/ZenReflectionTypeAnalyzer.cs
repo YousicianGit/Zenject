@@ -202,6 +202,7 @@ namespace Zenject.Internal
 
             if (constructors.IsEmpty())
             {
+	            UnityEngine.Debug.Log($"{type} has {constructors.Length} constructors");
                 return null;
             }
 
