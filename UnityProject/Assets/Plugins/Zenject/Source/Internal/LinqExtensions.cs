@@ -18,12 +18,24 @@ namespace ModestTree
         {
             Assert.IsNotNull(source);
 
-            if (source.Count() > 1)
+            using (var e = source.GetEnumerator())
             {
-                return default(TSource);
-            }
+	            if (!e.MoveNext())
+	            {
+		            return default(TSource);
+	            }
 
-            return source.FirstOrDefault();
+	            var value = e.Current;
+
+	            if (e.MoveNext())
+	            {
+		            return default(TSource);
+	            }
+	            else
+	            {
+		            return value;
+	            }
+            }
         }
 
         // These are more efficient than Count() in cases where the size of the collection is not known
