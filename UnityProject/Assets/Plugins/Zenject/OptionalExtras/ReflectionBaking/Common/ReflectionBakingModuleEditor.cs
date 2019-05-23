@@ -632,6 +632,16 @@ namespace Zenject.ReflectionBaking
                 instructions.Add(Instruction.Create(OpCodes.Ldc_I4, (int)identifier));
                 instructions.Add(Instruction.Create(OpCodes.Box, _module.Import(typeof(int))));
             }
+            else if (identifier is float)
+            {
+	            instructions.Add(Instruction.Create(OpCodes.Ldc_R4, (float)identifier));
+	            instructions.Add(Instruction.Create(OpCodes.Box, _module.Import(typeof(float))));
+            }
+            else if (identifier is bool)
+            {
+	            instructions.Add(Instruction.Create(OpCodes.Ldc_I4, (bool)identifier ? 1 : 0));
+	            instructions.Add(Instruction.Create(OpCodes.Box, _module.Import(typeof(bool))));
+            }
             else if (identifier.GetType().IsEnum)
             {
                 instructions.Add(Instruction.Create(OpCodes.Ldc_I4, Convert.ToInt32(identifier)));
