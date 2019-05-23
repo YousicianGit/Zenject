@@ -634,7 +634,7 @@ namespace Zenject.ReflectionBaking
             }
             else if (identifier.GetType().IsEnum)
             {
-                instructions.Add(Instruction.Create(OpCodes.Ldc_I4, (int)identifier));
+                instructions.Add(Instruction.Create(OpCodes.Ldc_I4, Convert.ToInt32(identifier)));
                 instructions.Add(Instruction.Create(OpCodes.Box, _module.Import(identifier.GetType())));
             }
             else
