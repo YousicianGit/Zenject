@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -47,12 +48,12 @@ namespace Zenject.ReflectionBaking
                 return;
             }
 
-            if (settings.AllGeneratedAssemblies && settings.ExcludeAssemblies.Contains(assemblyAssetPath))
+            if (settings.AllGeneratedAssemblies && settings.ExcludeAssemblies != null && settings.ExcludeAssemblies.Contains(assemblyAssetPath))
             {
                 return;
             }
 
-            if (!settings.AllGeneratedAssemblies && !settings.IncludeAssemblies.Contains(assemblyAssetPath))
+            if (!settings.AllGeneratedAssemblies && settings.IncludeAssemblies != null&& !settings.IncludeAssemblies.Contains(assemblyAssetPath))
             {
                 return;
             }
@@ -87,7 +88,7 @@ namespace Zenject.ReflectionBaking
             Assert.IsNotNull(assembly, "Could not find unique assembly '{0}' in currently loaded list of assemblies", assemblyName);
 
             int numTypesChanged = ReflectionBakingModuleEditor.WeaveAssembly(
-                module, assembly, settings.NamespacePatterns);
+                module, assembly, settings.NamespacePatterns ?? new List<string>());
 
             if (numTypesChanged > 0)
             {
