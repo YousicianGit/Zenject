@@ -98,7 +98,7 @@ This project is simply a fork of [Zenject](https://github.com/modesttree/zenject
     - [Is there a way to integrate with the upcoming Unity ECS?](#is-there-a-way-to-integrate-with-the-upcoming-unity-ecs)
     - [Does this work on AOT platforms such as iOS and WebGL?](#does-this-work-on-aot-platforms-such-as-ios-and-webgl)
     - [How is performance?](#how-is-performance)
-    - [How do I use Unity style Coroutines in normal C# classes?](#how-do-i-use-unity-style-coroutines-in-normal-c-classes)
+    - [How do I use Unity style Coroutines in normal C&#035; classes?](#how-do-i-use-unity-style-coroutines-in-normal-c-classes)
     - [Are there any more sample projects to look at?](#are-there-any-more-sample-projects-to-look-at)
     - [What games/applications/libraries are using Zenject?](#what-gamesapplicationslibraries-are-using-zenject)
     - [I keep getting errors complaining about circular reference!  How to address this?](#i-keep-getting-errors-complaining-about-circular-reference--how-to-address-this)
