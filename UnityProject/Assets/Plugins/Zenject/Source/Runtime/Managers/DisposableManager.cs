@@ -123,8 +123,7 @@ namespace Zenject
                 }
                 catch (Exception e)
                 {
-                    throw Assert.CreateException(
-                        e, "Error occurred while disposing IDisposable with type '{0}'", disposable.Disposable.GetType());
+	                Log.ErrorException($"Error occurred while disposing IDisposable with type '{disposable.Disposable.GetType()}'", e);
                 }
             }
         }
