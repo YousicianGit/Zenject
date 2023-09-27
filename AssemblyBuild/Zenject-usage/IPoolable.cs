@@ -9,19 +9,19 @@ namespace Zenject
         void OnSpawned();
     }
 
-    public interface IPoolable<TParam1>
+    public interface IPoolable<in TParam1>
     {
         void OnDespawned();
         void OnSpawned(TParam1 p1);
     }
 
-    public interface IPoolable<TParam1, TParam2>
+    public interface IPoolable<in TParam1, in TParam2>
     {
         void OnDespawned();
         void OnSpawned(TParam1 p1, TParam2 p2);
     }
 
-    public interface IPoolable<TParam1, TParam2, TParam3>
+    public interface IPoolable<in TParam1, in TParam2, in TParam3>
     {
         void OnDespawned();
         void OnSpawned(TParam1 p1, TParam2 p2, TParam3 p3);
