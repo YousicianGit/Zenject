@@ -34,7 +34,6 @@ namespace Zenject
         readonly Queue<BindStatement> _currentBindings = new Queue<BindStatement>();
         readonly List<BindStatement> _childBindings = new List<BindStatement>();
 
-        readonly HashSet<Type> _validatedTypes = new HashSet<Type>();
         readonly List<IValidatable> _validationQueue = new List<IValidatable>();
 
 #if !NOT_UNITY3D
@@ -192,16 +191,13 @@ namespace Zenject
 
         public void QueueForValidate(IValidatable validatable)
         {
-            // Don't bother adding to queue if the initial resolve is already completed
-            if (!_hasResolvedRoots)
+            if (_hasResolvedRoots)
             {
-                var concreteType = validatable.GetType();
-
-                if (!_validatedTypes.Contains(concreteType))
-                {
-                    _validatedTypes.Add(concreteType);
-                    _validationQueue.Add(validatable);
-                }
+				Log.Error($"Trying to queue '{validatable.GetType().PrettyName()}' for validation after resolving");
+            }
+            else
+            {
+                _validationQueue.Add(validatable);
             }
         }
 
