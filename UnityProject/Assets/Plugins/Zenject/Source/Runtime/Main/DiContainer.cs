@@ -193,7 +193,7 @@ namespace Zenject
         {
             if (_hasResolvedRoots)
             {
-				Log.Error($"Trying to queue '{validatable.GetType().PrettyName()}' for validation after resolving");
+                Log.Error($"Trying to queue '{validatable.GetType().PrettyName()}' for validation after resolving");
             }
             else
             {
