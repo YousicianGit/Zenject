@@ -268,6 +268,28 @@ namespace Zenject
                 result.AppendLine(context.ObjectType.PrettyName());
             }
 
+#if !NOT_UNITY3D
+            if (this.ObjectInstance is UnityEngine.Component component)
+            {
+                // Print the GameObject hierarchy
+                var transform = component.transform;
+                while (transform != null)
+                {
+                    if (transform.name.EndsWith("(Clone)"))
+                    {
+                        // Stop printing when we find an instantiated object, we are validating that prefab
+                        result.AppendLine(transform.name.Replace("(Clone)", " (prefab)"));
+                        break;
+                    }
+                    else
+                    {
+                        result.AppendLine(transform.name);
+                        transform = transform.parent;
+                    }
+                }
+            }
+#endif
+
             return result.ToString();
         }
     }
