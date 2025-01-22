@@ -34,8 +34,10 @@ namespace Zenject
                 if (_subContainer == null)
                 {
 #if !ZEN_MULTITHREADING
-                    Assert.That(!_isLookingUp,
-                        "Found unresolvable circular dependency when looking up sub container!  Object graph:\n {0}", context.GetObjectGraphString());
+                    if (this._isLookingUp)
+                    {
+                        Assert.That(false, "Found unresolvable circular dependency when looking up sub container!  Object graph:\n {0}", context.GetObjectGraphString());
+                    }
                     _isLookingUp = true;
 #endif
 
@@ -48,7 +50,7 @@ namespace Zenject
 
                     Assert.IsNotNull(_subContainer);
                 }
-                else 
+                else
                 {
                     injectAction = null;
                 }
