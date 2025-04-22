@@ -265,32 +265,46 @@ namespace Zenject
                     continue;
                 }
 
-                result.AppendLine(context.ObjectType.PrettyName());
-            }
-
 #if !NOT_UNITY3D
-            if (this.ObjectInstance is UnityEngine.Component component)
-            {
-                // Print the GameObject hierarchy
-                var transform = component.transform;
-                while (transform != null)
+                if (this.ObjectInstance is UnityEngine.Component component)
                 {
-                    if (transform.name.EndsWith("(Clone)"))
-                    {
-                        // Stop printing when we find an instantiated object, we are validating that prefab
-                        result.AppendLine(transform.name.Replace("(Clone)", " (prefab)"));
-                        break;
-                    }
-                    else
-                    {
-                        result.AppendLine(transform.name);
-                        transform = transform.parent;
-                    }
+                    // Print the GameObject hierarchy
+                    result.Append(context.ObjectType.PrettyName());
+                    result.Append(" (");
+                    result.Append(string.Join(" → ", PathToPrefab(component).Reverse()));
+                    result.AppendLine(")");
                 }
-            }
+                else
+                {
+                    result.AppendLine(context.ObjectType.PrettyName());
+                }
+#else
+                result.AppendLine(context.ObjectType.PrettyName());
 #endif
+            }
 
             return result.ToString();
         }
+
+#if !NOT_UNITY3D
+        private static IEnumerable<string> PathToPrefab(UnityEngine.Component component)
+        {
+            var transform = component.transform;
+            while (transform != null)
+            {
+                if (transform.name.EndsWith("(Clone)"))
+                {
+                    // Stop when we find an instantiated object, that is the prefab
+                    yield return transform.name.Replace("(Clone)", " (prefab)");
+                    yield break;
+                }
+                else
+                {
+                    yield return transform.name;
+                    transform = transform.parent;
+                }
+            }
+        }
+#endif
     }
 }
